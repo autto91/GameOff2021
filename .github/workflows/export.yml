@@ -2,7 +2,7 @@ name: "Game Export"
 on:
   push:
     branches:
-      - master
+      - main
 
 env:
   GODOT_VERSION: 3.3.4
