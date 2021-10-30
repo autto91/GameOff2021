@@ -1,4 +1,4 @@
-name: "Game Export"
+name: "GamePipe"
 on:
   push:
     branches:
@@ -26,9 +26,9 @@ jobs:
           cd src
           godot -v --export "windows" ../build/win/$EXPORT_NAME.exe
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: ${EXPORT_NAME}-windows
+          name: game-off-2021-windows
           path: build/win
 
   export-linux:
@@ -48,9 +48,9 @@ jobs:
           cd src
           godot -v --export "linux" ../build/linux/$EXPORT_NAME.bin
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: ${EXPORT_NAME}-linux
+          name: game-off-2021-linux
           path: build/linux
 
   export-mac:
@@ -70,7 +70,64 @@ jobs:
           cd src
           godot -v --export "mac" ../build/mac/$EXPORT_NAME.zip
       - name: Upload Artifact
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: ${EXPORT_NAME}-mac
+          name: game-off-2021-mac
           path: build/mac
+  
+  upload-itch-windows:
+    name: Upload Windows Build to Itch.io
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:3.3.4
+    needs: 
+      - export-windows
+    steps:
+      - name: Download Windows Build
+        uses: actions/download-artifact@v2
+        with:
+          name: game-off-2021-windows
+      - name: Upload To Itch.io
+        run: |
+          butler push ./game-off-2021-windows ${ITCHIO_USERNAME}/${ITCHIO_GAME}:windows
+        env:
+          ITCHIO_USERNAME: autto
+          ITCHIO_GAME: game-off-2021
+          BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+  
+  upload-itch-linux:
+    name: Upload Linux Build to Itch.io
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:3.3.4
+    needs:
+      - export-linux
+    steps:
+      - name: Download Linux Build
+        uses: actions/download-artifact@v2
+        with:
+          name: game-off-2021-linux
+      - name: Upload To Itch.io
+        run: |
+          butler push ./game-off-2021-linux ${ITCHIO_USERNAME}/${ITCHIO_GAME}:linux
+        env:
+          ITCHIO_USERNAME: autto
+          ITCHIO_GAME: game-off-2021
+          BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+
+  upload-itch-mac:
+    name: Upload Mac Builds to Itch.io
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:3.3.4
+    needs:
+      - export-mac
+    steps:
+      - name: Download Mac Build
+        uses: actions/download-artifact@v2
+        with: 
+          name: game-off-2021-mac
+      - name: Upload To Itch.io
+        run: |
+          butler push ./game-off-2021-mac ${ITCHIO_USERNAME}/${ITCHIO_GAME}:mac
+        env:
+          ITCHIO_USERNAME: autto
+          ITCHIO_GAME: game-off-2021
+          BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
