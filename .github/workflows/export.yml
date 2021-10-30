@@ -89,7 +89,8 @@ jobs:
           path: game-off-2021-windows
       - name: Upload To Itch.io
         run: |
-          butler push ./game-off-2021-windows ${ITCHIO_USERNAME}/${ITCHIO_GAME}:windows --userversion ${BUILD_SHA}
+          SHORT_SHA=`echo ${BUILD_SHA} | cut -c1-8`
+          butler push ./game-off-2021-windows ${ITCHIO_USERNAME}/${ITCHIO_GAME}:windows --userversion ${SHORT_SHA}
         env:
           ITCHIO_USERNAME: autto
           ITCHIO_GAME: game-off-2021
@@ -110,7 +111,8 @@ jobs:
           path: game-off-2021-linux
       - name: Upload To Itch.io
         run: |
-          butler push ./game-off-2021-linux ${ITCHIO_USERNAME}/${ITCHIO_GAME}:linux --userversion ${BUILD_SHA}
+          SHORT_SHA=`echo ${BUILD_SHA} | cut -c1-8`
+          butler push ./game-off-2021-linux ${ITCHIO_USERNAME}/${ITCHIO_GAME}:linux --userversion ${SHORT_SHA}
         env:
           ITCHIO_USERNAME: autto
           ITCHIO_GAME: game-off-2021
@@ -131,7 +133,8 @@ jobs:
           path: game-off-2021-mac
       - name: Upload To Itch.io
         run: |
-          butler push ./game-off-2021-mac ${ITCHIO_USERNAME}/${ITCHIO_GAME}:mac --userversion ${BUILD_SHA}
+          SHORT_SHA=`echo ${BUILD_SHA} | cut -c1-8`
+          butler push ./game-off-2021-mac ${ITCHIO_USERNAME}/${ITCHIO_GAME}:mac --userversion ${SHORT_SHA}
         env:
           ITCHIO_USERNAME: autto
           ITCHIO_GAME: game-off-2021
