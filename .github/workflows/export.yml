@@ -89,11 +89,12 @@ jobs:
           path: game-off-2021-windows
       - name: Upload To Itch.io
         run: |
-          butler push ./game-off-2021-windows ${ITCHIO_USERNAME}/${ITCHIO_GAME}:windows
+          butler push ./game-off-2021-windows ${ITCHIO_USERNAME}/${ITCHIO_GAME}:windows --userversion ${BUILD_SHA}
         env:
           ITCHIO_USERNAME: autto
           ITCHIO_GAME: game-off-2021
           BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+          BUILD_SHA: ${{ github.sha }}
 
   upload-itch-linux:
     name: Upload Linux Build to Itch.io
@@ -109,11 +110,12 @@ jobs:
           path: game-off-2021-linux
       - name: Upload To Itch.io
         run: |
-          butler push ./game-off-2021-linux ${ITCHIO_USERNAME}/${ITCHIO_GAME}:linux
+          butler push ./game-off-2021-linux ${ITCHIO_USERNAME}/${ITCHIO_GAME}:linux --userversion ${BUILD_SHA}
         env:
           ITCHIO_USERNAME: autto
           ITCHIO_GAME: game-off-2021
           BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+          BUILD_SHA: ${{ github.sha }}
 
   upload-itch-mac:
     name: Upload Mac Builds to Itch.io
@@ -129,8 +131,9 @@ jobs:
           path: game-off-2021-mac
       - name: Upload To Itch.io
         run: |
-          butler push ./game-off-2021-mac ${ITCHIO_USERNAME}/${ITCHIO_GAME}:mac
+          butler push ./game-off-2021-mac ${ITCHIO_USERNAME}/${ITCHIO_GAME}:mac --userversion ${BUILD_SHA}
         env:
           ITCHIO_USERNAME: autto
           ITCHIO_GAME: game-off-2021
           BUTLER_API_KEY: ${{ secrets.ITCH_API_KEY }}
+          BUILD_SHA: ${{ github.sha }}
