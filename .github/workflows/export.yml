@@ -1,0 +1,76 @@
+name: "Game Export"
+on:
+  push:
+    branches:
+      - master
+
+env:
+  GODOT_VERSION: 3.3.4
+  EXPORT_NAME: game-off-2021
+
+jobs:
+  export-windows:
+    name: Windows Export
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:3.3.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Export Templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Build
+        run: |
+          mkdir -v -p build/win
+          cd src
+          godot -v --export "windows" ../build/win/$EXPORT_NAME.exe
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: windows
+          path: build/win
+
+  export-linux:
+    name: Linux Export
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:3.3.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Export Templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Build
+        run: |
+          mkdir -v -p build/linux
+          cd src
+          godot -v --export "linux" ../build/linux/$EXPORT_NAME.bin
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: linux
+          path: build/linux
+
+  export-mac:
+    name: MacOS Export
+    runs-on: ubuntu-latest
+    container: barichello/godot-ci:3.3.4
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Export Templates
+        run: |
+          mkdir -v -p ~/.local/share/godot/templates
+          mv /root/.local/share/godot/templates/${GODOT_VERSION}.stable ~/.local/share/godot/templates/${GODOT_VERSION}.stable
+      - name: Build
+        run: |
+          mkdir -v -p build/mac
+          cd src
+          godot -v --export "mac" ../build/mac/$EXPORT_NAME.zip
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v1
+        with:
+          name: mac
+          path: build/mac
