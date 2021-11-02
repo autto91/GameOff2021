@@ -56,4 +56,8 @@ func _physics_process(delta: float) -> void:
 		velocity.y = -jump_speed
 
 	velocity.y += gravity * delta
+
+	if Input.is_action_just_released('p_jump') and velocity.y < 0:
+		velocity.y = 0
+
 	velocity = move_and_slide(velocity, Vector2.UP)
