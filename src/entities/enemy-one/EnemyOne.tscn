@@ -17,3 +17,13 @@ texture = ExtResource( 1 )
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
+
+[node name="LeftEdge" type="RayCast2D" parent="."]
+position = Vector2( -16, 0 )
+enabled = true
+cast_to = Vector2( 0, 18 )
+
+[node name="RightEdge" type="RayCast2D" parent="."]
+position = Vector2( 16, 0 )
+enabled = true
+cast_to = Vector2( 0, 18 )

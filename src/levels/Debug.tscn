@@ -18,10 +18,10 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 [node name="Enemies" type="Node2D" parent="."]
 
 [node name="EnemyOne" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 216, 168 )
+position = Vector2( 144, 208 )
 
 [node name="EnemyTwo" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 672, 104 )
+position = Vector2( 568, 400 )
 
 [node name="EnemyThree" parent="Enemies" instance=ExtResource( 3 )]
-position = Vector2( 672, 328 )
+position = Vector2( 440, 112 )
