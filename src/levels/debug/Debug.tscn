@@ -1,14 +1,16 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://tilesets/debug_tiles.tres" type="TileSet" id=1]
-[ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=2]
-[ext_resource path="res://entities/enemy-one/EnemyOne.tscn" type="PackedScene" id=3]
-[ext_resource path="res://entities/patch/Patch.tscn" type="PackedScene" id=4]
-[ext_resource path="res://ui/game-hud/GameHud.tscn" type="PackedScene" id=5]
+[ext_resource path="res://levels/debug/debug.gd" type="Script" id=2]
+[ext_resource path="res://entities/patch/Patch.tscn" type="PackedScene" id=3]
+[ext_resource path="res://entities/enemy-one/EnemyOne.tscn" type="PackedScene" id=4]
+[ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/game-hud/GameHud.tscn" type="PackedScene" id=6]
 
 [node name="Debug" type="Node"]
+script = ExtResource( 2 )
 
-[node name="Player" parent="." instance=ExtResource( 2 )]
+[node name="Player" parent="." instance=ExtResource( 5 )]
 position = Vector2( 104, 464 )
 
 [node name="TileMap" type="TileMap" parent="."]
@@ -21,26 +23,23 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 "enemies",
 ]]
 
-[node name="EnemyOne" parent="Enemies" instance=ExtResource( 3 )]
+[node name="EnemyOne" parent="Enemies" instance=ExtResource( 4 )]
 position = Vector2( 144, 208 )
 
-[node name="EnemyTwo" parent="Enemies" instance=ExtResource( 3 )]
+[node name="EnemyTwo" parent="Enemies" instance=ExtResource( 4 )]
 position = Vector2( 568, 400 )
 
-[node name="EnemyThree" parent="Enemies" instance=ExtResource( 3 )]
+[node name="EnemyThree" parent="Enemies" instance=ExtResource( 4 )]
 position = Vector2( 440, 112 )
 
 [node name="Patches" type="Node2D" parent="."]
 
-[node name="Patch" parent="Patches" instance=ExtResource( 4 )]
+[node name="Patch" parent="Patches" instance=ExtResource( 3 )]
 position = Vector2( 216, 464 )
 gravity_vec = Vector2( 0, 0 )
 gravity = 0.0
 
-[node name="GameHud" parent="." instance=ExtResource( 5 )]
+[node name="GameHud" parent="." instance=ExtResource( 6 )]
 
 [connection signal="player_damaged" from="Player" to="GameHud" method="_on_player_damaged"]
-[connection signal="hit_player" from="Enemies/EnemyOne" to="Player" method="_on_player_hit"]
-[connection signal="hit_player" from="Enemies/EnemyTwo" to="Player" method="_on_player_hit"]
-[connection signal="hit_player" from="Enemies/EnemyThree" to="Player" method="_on_player_hit"]
 [connection signal="patch_collected" from="Patches/Patch" to="Player" method="_on_patch_collected"]

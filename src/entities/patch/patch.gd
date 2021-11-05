@@ -7,9 +7,9 @@ enum PatchType {
 	DOUBLE_JUMP = 0,
 }
 
-export (PatchType) var active_patch := PatchType.DOUBLE_JUMP
+export (PatchType) var patch_type := PatchType.DOUBLE_JUMP
 
 
 func _on_patch_body_entered(_body: Node) -> void:
-	emit_signal('patch_collected', active_patch)
+	emit_signal('patch_collected', patch_type)
 	queue_free()
