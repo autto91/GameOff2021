@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node",
+"class": "Debug",
+"language": "GDScript",
+"path": "res://levels/debug/debug.gd"
+}, {
 "base": "KinematicBody2D",
 "class": "EnemyOne",
 "language": "GDScript",
@@ -38,14 +43,21 @@ _global_script_classes=[ {
 "class": "Player",
 "language": "GDScript",
 "path": "res://entities/player/player.gd"
+}, {
+"base": "Control",
+"class": "TitleMenu",
+"language": "GDScript",
+"path": "res://ui/title-menu/title_menu.gd"
 } ]
 _global_script_class_icons={
+"Debug": "",
 "EnemyOne": "",
 "GameHud": "",
 "InputManager": "",
 "Main": "",
 "Patch": "",
-"Player": ""
+"Player": "",
+"TitleMenu": ""
 }
 
 [application]
