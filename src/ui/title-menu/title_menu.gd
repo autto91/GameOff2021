@@ -11,7 +11,7 @@ enum MenuSelect {
 
 
 func _ready() -> void:
-	$CenterContainer/VBoxContainer/LevelOne.grab_focus()
+	$CenterContainer/VBoxContainer/Play.grab_focus()
 
 
 func _on_level_debug_pressed() -> void:

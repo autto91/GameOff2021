@@ -35,29 +35,29 @@ margin_right = 445.0
 margin_bottom = 350.0
 custom_constants/separation = 20
 
-[node name="LevelOne" type="Button" parent="CenterContainer/VBoxContainer"]
+[node name="Play" type="Button" parent="CenterContainer/VBoxContainer"]
 margin_right = 91.0
 margin_bottom = 20.0
-text = "Level One"
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
-[node name="DebugLevel" type="Button" parent="CenterContainer/VBoxContainer"]
-margin_top = 40.0
-margin_right = 91.0
-margin_bottom = 60.0
-text = "Debug Level"
+text = "Play"
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="Quit" type="Button" parent="CenterContainer/VBoxContainer"]
+margin_top = 40.0
+margin_right = 91.0
+margin_bottom = 60.0
+text = "Quit"
+
+[node name="Debug" type="Button" parent="CenterContainer/VBoxContainer"]
 margin_top = 80.0
 margin_right = 91.0
 margin_bottom = 100.0
-text = "Quit"
+text = "Debug Level"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
-[connection signal="pressed" from="CenterContainer/VBoxContainer/LevelOne" to="." method="_on_level_one_pressed"]
-[connection signal="pressed" from="CenterContainer/VBoxContainer/DebugLevel" to="." method="_on_level_debug_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Play" to="." method="_on_level_one_pressed"]
 [connection signal="pressed" from="CenterContainer/VBoxContainer/Quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="CenterContainer/VBoxContainer/Debug" to="." method="_on_level_debug_pressed"]

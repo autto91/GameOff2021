@@ -1,7 +1,6 @@
 class_name GameHud
 extends Control
 
-
 onready var pip_one := $HealthMeter/Pips/PipOne
 onready var pip_two := $HealthMeter/Pips/PipTwo
 onready var pip_three := $HealthMeter/Pips/PipThree

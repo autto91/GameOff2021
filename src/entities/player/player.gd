@@ -110,6 +110,7 @@ func _on_player_hit() -> void:
 		damage_timer.start()
 
 		if player_lives <= 0:
+			# TODO: hanlde death/reset of game
 			queue_free()
 
 
