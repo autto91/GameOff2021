@@ -1,4 +1,4 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/enemy-one.png" type="Texture" id=1]
 [ext_resource path="res://entities/enemy-one/enemy_one.gd" type="Script" id=2]
@@ -6,11 +6,11 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 18, 14 )
+
 [node name="EnemyOne" type="KinematicBody2D"]
 script = ExtResource( 2 )
-__meta__ = {
-"_edit_group_": true
-}
 
 [node name="Sprite" type="Sprite" parent="."]
 texture = ExtResource( 1 )
@@ -27,3 +27,12 @@ cast_to = Vector2( 0, 18 )
 position = Vector2( 16, 0 )
 enabled = true
 cast_to = Vector2( 0, 18 )
+
+[node name="AttackArea" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea"]
+shape = SubResource( 2 )
+
+[connection signal="body_entered" from="AttackArea" to="." method="_on_attack_area_entered"]

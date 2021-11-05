@@ -1,6 +1,8 @@
 class_name EnemyOne
 extends KinematicBody2D
 
+signal hit_player
+
 export (float) var edge_timeout := 0.5
 export (int) var speed := 50
 
@@ -68,3 +70,8 @@ func _physics_process(delta: float) -> void:
 		direction *= -1
 		right_edge.position.x *= -1
 		right_edge_flipped = true
+
+
+func _on_attack_area_entered(body: Node) -> void:
+	if body.name == 'Player':
+		emit_signal('hit_player')

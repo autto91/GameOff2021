@@ -1,6 +1,8 @@
 class_name Player
 extends KinematicBody2D
 
+signal player_damaged
+
 enum PatchType {
 	DOUBLE_JUMP = 0,
 }
@@ -20,15 +22,19 @@ const acceleration := 0.25
 const friction := 0.5
 const coyote_time := 0.1
 
+var player_lives := 3
 var velocity := Vector2.ZERO
 var jump_num := 0
 var has_coyote_time := true
+var is_vulnerable := true
 
 var patch_state = {
 	PatchType.DOUBLE_JUMP: {
 		'enabled': false
 	}
 }
+
+onready var damage_timer := $DamageTimer
 
 
 func _handle_direction_input() -> void:
@@ -93,3 +99,19 @@ func _on_patch_collected(patch_type: int) -> void:
 	match patch_type:
 		PatchType.DOUBLE_JUMP:
 			patch_state[PatchType.DOUBLE_JUMP]['enabled'] = true
+
+
+func _on_player_hit() -> void:
+	if is_vulnerable:
+		emit_signal('player_damaged')
+
+		player_lives -= 1
+		is_vulnerable = false
+		damage_timer.start()
+
+		if player_lives <= 0:
+			queue_free()
+
+
+func _on_damage_timer_timeout() -> void:
+	is_vulnerable = true
