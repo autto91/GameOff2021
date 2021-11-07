@@ -5,6 +5,7 @@ signal patch_collected(patch_type)
 
 enum PatchType {
 	DOUBLE_JUMP = 0,
+	STUN_ARM = 1,
 }
 
 export (PatchType) var patch_type := PatchType.DOUBLE_JUMP

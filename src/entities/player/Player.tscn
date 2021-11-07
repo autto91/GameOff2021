@@ -1,10 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/robot.png" type="Texture" id=1]
 [ext_resource path="res://entities/player/player.gd" type="Script" id=2]
+[ext_resource path="res://entities/player/stun_area.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 16 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 15, 8 )
 
 [node name="Player" type="KinematicBody2D"]
 collision_layer = 7
@@ -23,4 +27,19 @@ shape = SubResource( 1 )
 [node name="DamageTimer" type="Timer" parent="."]
 one_shot = true
 
+[node name="StunArea" type="Area2D" parent="."]
+gravity = 0.0
+collision_layer = 8
+collision_mask = 8
+script = ExtResource( 3 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StunArea"]
+shape = SubResource( 2 )
+
+[node name="FireTimer" type="Timer" parent="StunArea"]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
+[connection signal="body_entered" from="StunArea" to="." method="_on_stun_area_body_entered"]
+[connection signal="timeout" from="StunArea/FireTimer" to="StunArea" method="_on_timer_timeout"]

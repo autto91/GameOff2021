@@ -34,12 +34,20 @@ position = Vector2( 440, 112 )
 
 [node name="Patches" type="Node2D" parent="."]
 
-[node name="Patch" parent="Patches" instance=ExtResource( 3 )]
-position = Vector2( 216, 464 )
+[node name="DoubleJump" parent="Patches" instance=ExtResource( 3 )]
+position = Vector2( 224, 464 )
 gravity_vec = Vector2( 0, 0 )
 gravity = 0.0
 
+[node name="StunArm" parent="Patches" instance=ExtResource( 3 )]
+position = Vector2( 640, 544 )
+gravity_vec = Vector2( 0, 0 )
+gravity = 0.0
+patch_type = 1
+
 [node name="GameHud" parent="." instance=ExtResource( 6 )]
+visible = false
 
 [connection signal="player_damaged" from="Player" to="GameHud" method="_on_player_damaged"]
-[connection signal="patch_collected" from="Patches/Patch" to="Player" method="_on_patch_collected"]
+[connection signal="patch_collected" from="Patches/DoubleJump" to="Player" method="_on_patch_collected"]
+[connection signal="patch_collected" from="Patches/StunArm" to="Player" method="_on_patch_collected"]
