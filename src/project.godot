@@ -65,6 +65,11 @@ _global_script_classes=[ {
 "path": "res://services/signal_manager.gd"
 }, {
 "base": "Area2D",
+"class": "StunArea",
+"language": "GDScript",
+"path": "res://entities/player/stun_area.gd"
+}, {
+"base": "Area2D",
 "class": "StunArm",
 "language": "GDScript",
 "path": "res://entities/stun-arm/stun_arm.gd"
@@ -91,6 +96,7 @@ _global_script_class_icons={
 "Patch": "",
 "Player": "",
 "SignalManager": "",
+"StunArea": "",
 "StunArm": "",
 "StunRoom": "",
 "TitleMenu": ""
@@ -100,7 +106,6 @@ _global_script_class_icons={
 
 config/name="GameOff2021"
 run/main_scene="res://scenes/main/Main.tscn"
-boot_splash/bg_color=Color( 0, 0, 0, 1 )
 config/icon="res://icon.png"
 
 [autoload]

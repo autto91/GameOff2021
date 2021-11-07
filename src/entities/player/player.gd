@@ -47,7 +47,15 @@ var patch_state = {
 }
 
 onready var damage_timer := $DamageTimer
-onready var stun_arm := $StunArm
+onready var stun_area := $StunArea
+
+
+func _can_double_jump() -> bool:
+	return patch_state[PatchType.DOUBLE_JUMP]['enabled'] and not patch_state[PatchType.STUN_ARM]['enabled']
+
+
+func _can_high_jump() -> bool:
+	return not _can_double_jump() and patch_state[PatchType.STUN_ARM]['enabled']
 
 
 func _handle_direction_input() -> void:
@@ -68,20 +76,28 @@ func _handle_direction_input() -> void:
 		else:
 			speed = walk_speed
 
-		velocity.x = lerp(velocity.x, dir * speed, acceleration)
+		# dampen left/right movement when midair high jump
+		if not is_on_floor() and _can_high_jump():
+			velocity.x = lerp(velocity.x, dir * (speed * 0.5), acceleration)
+		else:
+			velocity.x = lerp(velocity.x, dir * speed, acceleration)
 	else:
 		velocity.x = lerp(velocity.x, 0, friction)
 
 
 func _handle_jump(delta: float) -> void:
+	var jump_speed_multiplier := 1
+	if _can_high_jump():
+		jump_speed_multiplier = 2
+
 	if Input.is_action_just_pressed('p_jump') and has_coyote_time:
 		if jump_num == 0:
-			velocity.y = -jump_speed
+			velocity.y = -jump_speed * jump_speed_multiplier
 			jump_num += 1
 
-	if Input.is_action_just_pressed('p_jump') and not has_coyote_time and not is_on_floor() and patch_state[PatchType.DOUBLE_JUMP]['enabled']:
+	if Input.is_action_just_pressed('p_jump') and not has_coyote_time and not is_on_floor() and _can_double_jump():
 		if jump_num == 1:
-			velocity.y = -jump_speed
+			velocity.y = -jump_speed * jump_speed_multiplier
 			jump_num += 1
 
 	velocity.y += gravity * delta
@@ -94,9 +110,9 @@ func _handle_action() -> void:
 	if Input.is_action_pressed('p_fire') and patch_state[PatchType.STUN_ARM]['enabled']:
 		match facing_state:
 			FacingDirection.LEFT:
-				stun_arm.fire(stun_arm.FireDirection.LEFT, Vector2(position.x - 16, position.y))
+				stun_area.fire(Vector2(-32, 0))
 			FacingDirection.RIGHT:
-				stun_arm.fire(stun_arm.FireDirection.RIGHT, Vector2(position.x + 16, position.y))
+				stun_area.fire(Vector2(32, 0))
 
 
 func _handle_coyote_time() -> void:
@@ -149,3 +165,8 @@ func _on_player_hit() -> void:
 
 func _on_damage_timer_timeout() -> void:
 	is_vulnerable = true
+
+
+func _on_stun_area_body_entered(body: Node) -> void:
+	if body.name.begins_with('Enemy') or body.name.begins_with('enemy'):
+		body.queue_free()
