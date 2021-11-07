@@ -170,3 +170,7 @@ func _on_damage_timer_timeout() -> void:
 func _on_stun_area_body_entered(body: Node) -> void:
 	if body.name.begins_with('Enemy') or body.name.begins_with('enemy'):
 		body.queue_free()
+
+
+func _on_hud_patch_toggled(patch_type: int, enabled: bool) -> void:
+	patch_state[patch_type]['enabled'] = enabled

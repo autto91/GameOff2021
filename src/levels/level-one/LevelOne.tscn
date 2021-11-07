@@ -13,6 +13,7 @@
 
 [node name="IntroRoom" parent="Rooms" instance=ExtResource( 1 )]
 player_ref = NodePath("../../Player")
+hud_ref = NodePath("../../GUI/GameHud")
 
 [node name="JumpRoom" parent="Rooms" instance=ExtResource( 2 )]
 position = Vector2( 992, 0 )
@@ -25,6 +26,7 @@ player_ref = NodePath("../../Player")
 [node name="StunRoom" parent="Rooms" instance=ExtResource( 6 )]
 position = Vector2( 1024, 640 )
 player_ref = NodePath("../../Player")
+hud_ref = NodePath("../../GUI/GameHud")
 
 [node name="GUI" type="CanvasLayer" parent="."]
 
@@ -43,4 +45,5 @@ drag_margin_top = 0.3
 drag_margin_right = 0.3
 drag_margin_bottom = 0.3
 
+[connection signal="patch_toggled" from="GUI/GameHud" to="Player" method="_on_hud_patch_toggled"]
 [connection signal="player_damaged" from="Player" to="GUI/GameHud" method="_on_player_damaged"]
