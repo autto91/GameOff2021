@@ -40,6 +40,16 @@ shape = SubResource( 2 )
 wait_time = 0.5
 one_shot = true
 
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+drag_margin_h_enabled = true
+drag_margin_v_enabled = true
+smoothing_enabled = true
+drag_margin_left = 0.3
+drag_margin_top = 0.3
+drag_margin_right = 0.3
+drag_margin_bottom = 0.3
+
 [connection signal="timeout" from="DamageTimer" to="." method="_on_damage_timer_timeout"]
 [connection signal="body_entered" from="StunArea" to="." method="_on_stun_area_body_entered"]
 [connection signal="timeout" from="StunArea/FireTimer" to="StunArea" method="_on_timer_timeout"]

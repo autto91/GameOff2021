@@ -9,10 +9,10 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node",
-"class": "Debug",
+"base": "Node2D",
+"class": "DebugRoom",
 "language": "GDScript",
-"path": "res://levels/debug/debug.gd"
+"path": "res://rooms/debug-room/debug_room.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "EnemyOne",
@@ -83,9 +83,14 @@ _global_script_classes=[ {
 "class": "TitleMenu",
 "language": "GDScript",
 "path": "res://ui/title-menu/title_menu.gd"
+}, {
+"base": "Node2D",
+"class": "WinRoom",
+"language": "GDScript",
+"path": "res://rooms/win-room/win_room.gd"
 } ]
 _global_script_class_icons={
-"Debug": "",
+"DebugRoom": "",
 "EnemyOne": "",
 "EnemyRoom": "",
 "GameHud": "",
@@ -99,7 +104,8 @@ _global_script_class_icons={
 "StunArea": "",
 "StunArm": "",
 "StunRoom": "",
-"TitleMenu": ""
+"TitleMenu": "",
+"WinRoom": ""
 }
 
 [application]

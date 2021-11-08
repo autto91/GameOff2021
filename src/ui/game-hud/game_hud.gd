@@ -22,6 +22,8 @@ onready var health_pip_three := $HealthMeter/Pips/PipThree
 onready var double_jump_pip := $Patches/HBoxContainer/DoubleJumpPip
 onready var stun_arm_pip := $Patches/HBoxContainer/StunArmPip
 
+onready var win_label := $WinLabel
+
 var patch_last_selected: int = PatchType.DOUBLE_JUMP
 
 var patch_state = {
@@ -36,6 +38,11 @@ var patch_state = {
 		'selected': false
 	}
 }
+
+
+func toggle_win() -> void:
+	win_label.visible = true
+	get_tree().paused = true
 
 
 func _deselect_patch_texture(patch_pip: TextureRect, patch_type: int) -> void:
@@ -75,6 +82,8 @@ func _tick_selected() -> void:
 
 
 func _ready() -> void:
+	win_label.visible = false
+
 	double_jump_pip.texture = patch_pip_default
 	double_jump_pip.visible = false
 
