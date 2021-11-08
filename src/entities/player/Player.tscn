@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://assets/robot.png" type="Texture" id=1]
 [ext_resource path="res://entities/player/player.gd" type="Script" id=2]
 [ext_resource path="res://entities/player/stun_area.gd" type="Script" id=3]
+[ext_resource path="res://assets/stun-arm.png" type="Texture" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 15, 16 )
@@ -39,6 +40,10 @@ shape = SubResource( 2 )
 [node name="FireTimer" type="Timer" parent="StunArea"]
 wait_time = 0.5
 one_shot = true
+
+[node name="Sprite" type="Sprite" parent="StunArea"]
+visible = false
+texture = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
