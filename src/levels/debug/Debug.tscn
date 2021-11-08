@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://rooms/debug-room/DebugRoom.tscn" type="PackedScene" id=1]
+[ext_resource path="res://entities/player/Player.tscn" type="PackedScene" id=5]
+[ext_resource path="res://ui/game-hud/GameHud.tscn" type="PackedScene" id=6]
+[ext_resource path="res://rooms/win-room/WinRoom.tscn" type="PackedScene" id=7]
+
+[node name="Debug" type="Node"]
+
+[node name="Rooms" type="Node2D" parent="."]
+
+[node name="DebugRoom" parent="Rooms" instance=ExtResource( 1 )]
+player_ref = NodePath("../../Player")
+hud_ref = NodePath("../../CanvasLayer/GameHud")
+
+[node name="WinRoom" parent="Rooms" instance=ExtResource( 7 )]
+position = Vector2( 800, 0 )
+player_ref = NodePath("../../Player")
+hud_ref = NodePath("../../CanvasLayer/GameHud")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="GameHud" parent="CanvasLayer" instance=ExtResource( 6 )]
+
+[node name="Player" parent="." instance=ExtResource( 5 )]
+position = Vector2( 88, 432 )
+
+[connection signal="patch_toggled" from="CanvasLayer/GameHud" to="Player" method="_on_hud_patch_toggled"]
+[connection signal="player_damaged" from="Player" to="CanvasLayer/GameHud" method="_on_player_damaged"]
