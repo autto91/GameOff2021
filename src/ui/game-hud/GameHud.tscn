@@ -1,22 +1,43 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://assets/health-pip.png" type="Texture" id=1]
 [ext_resource path="res://ui/game-hud/game_hud.gd" type="Script" id=2]
+[ext_resource path="res://assets/patch-pip.png" type="Texture" id=3]
+[ext_resource path="res://assets/patch-pip-active.png" type="Texture" id=4]
+[ext_resource path="res://assets/patch-pip-selected.png" type="Texture" id=5]
 
 [node name="GameHud" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 2 )
 __meta__ = {
-"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+patch_pip_default = ExtResource( 3 )
+patch_pip_active = ExtResource( 4 )
+patch_pip_selected = ExtResource( 5 )
+
+[node name="WinLabel" type="Label" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -28.0
+margin_top = -7.0
+margin_right = 28.0
+margin_bottom = 7.0
+text = "You Win!"
+__meta__ = {
 "_edit_use_anchors_": false
 }
 
 [node name="HealthMeter" type="Control" parent="."]
-margin_left = 12.2919
-margin_top = 572.043
-margin_right = 52.2919
-margin_bottom = 589.043
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_left = 20.0
+margin_top = -30.0
+margin_right = 60.0
+margin_bottom = -10.0
 __meta__ = {
 "_edit_group_": true
 }
@@ -68,3 +89,56 @@ texture = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Patches" type="Control" parent="."]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -72.0
+margin_top = -56.0
+margin_right = -27.0
+margin_bottom = -16.0
+__meta__ = {
+"_edit_group_": true,
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="Patches"]
+margin_left = -24.0
+margin_top = 8.0
+margin_right = 26.0
+margin_bottom = 22.0
+text = "Patches"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Patches"]
+margin_left = -24.0
+margin_top = 24.0
+margin_right = 51.0
+margin_bottom = 51.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="DoubleJumpPip" type="TextureRect" parent="Patches/HBoxContainer"]
+margin_right = 16.0
+margin_bottom = 27.0
+texture = ExtResource( 3 )
+
+[node name="StunArmPip" type="TextureRect" parent="Patches/HBoxContainer"]
+margin_left = 20.0
+margin_right = 36.0
+margin_bottom = 27.0
+texture = ExtResource( 3 )
+
+[node name="SelectTimer" type="Timer" parent="."]
+one_shot = true
+
+[node name="WaitTimer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="SelectTimer" to="." method="_on_select_timeout"]
+[connection signal="timeout" from="WaitTimer" to="." method="_on_timeout"]
