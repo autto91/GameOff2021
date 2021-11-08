@@ -48,6 +48,7 @@ var patch_state = {
 
 onready var damage_timer := $DamageTimer
 onready var stun_area := $StunArea
+onready var animation := $AnimatedSprite
 
 
 func _can_double_jump() -> bool:
@@ -70,19 +71,31 @@ func _handle_direction_input() -> void:
 		facing_state = FacingDirection.RIGHT
 
 	if dir != 0:
-		var speed: int
-		if Input.is_action_pressed('p_run'):
-			speed = run_speed
-		else:
-			speed = walk_speed
+		var speed = walk_speed
+		# TODO: do we need running?
+#		if Input.is_action_pressed('p_run'):
+#			speed = run_speed
+#		else:
+#			speed = walk_speed
 
 		# dampen left/right movement when midair high jump
 		if not is_on_floor() and _can_high_jump():
 			velocity.x = lerp(velocity.x, dir * (speed * 0.5), acceleration)
 		else:
 			velocity.x = lerp(velocity.x, dir * speed, acceleration)
+
+		if facing_state == FacingDirection.LEFT:
+			animation.flip_h = true
+		else:
+			animation.flip_h = false
+
+		if is_on_floor() and is_vulnerable:
+			animation.play('walk')
+
 	else:
 		velocity.x = lerp(velocity.x, 0, friction)
+		if is_on_floor() and is_vulnerable:
+			animation.play('idle')
 
 
 func _handle_jump(delta: float) -> void:
@@ -104,6 +117,12 @@ func _handle_jump(delta: float) -> void:
 
 	if Input.is_action_just_released('p_jump') and velocity.y < 0:
 		velocity.y = 0
+
+	if not is_on_floor() and is_vulnerable:
+		if velocity.y < 0:
+			animation.play('jump')
+		elif velocity.y > 0:
+			animation.play('fall')
 
 
 func _handle_action() -> void:
@@ -157,6 +176,7 @@ func _on_player_hit() -> void:
 		player_lives -= 1
 		is_vulnerable = false
 		damage_timer.start()
+		animation.play('hurt')
 
 		if player_lives <= 0:
 			# TODO: hanlde death/reset of game
