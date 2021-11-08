@@ -110,9 +110,9 @@ func _handle_action() -> void:
 	if Input.is_action_pressed('p_fire') and patch_state[PatchType.STUN_ARM]['enabled']:
 		match facing_state:
 			FacingDirection.LEFT:
-				stun_area.fire(Vector2(-32, 0))
+				stun_area.fire(Vector2(-32, 0), FacingDirection.LEFT)
 			FacingDirection.RIGHT:
-				stun_area.fire(Vector2(32, 0))
+				stun_area.fire(Vector2(32, 0), FacingDirection.RIGHT)
 
 
 func _handle_coyote_time() -> void:
