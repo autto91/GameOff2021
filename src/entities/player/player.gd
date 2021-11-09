@@ -187,9 +187,9 @@ func _on_damage_timer_timeout() -> void:
 	is_vulnerable = true
 
 
-func _on_stun_area_body_entered(body: Node) -> void:
+func _on_stun_area_body_entered(body: EnemyOne) -> void:
 	if body.name.begins_with('Enemy') or body.name.begins_with('enemy'):
-		body.queue_free()
+		body.stun()
 
 
 func _on_hud_patch_toggled(patch_type: int, enabled: bool) -> void:
