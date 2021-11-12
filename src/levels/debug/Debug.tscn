@@ -7,6 +7,14 @@
 
 [node name="Debug" type="Node"]
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 1600.0
+margin_bottom = 608.0
+color = Color( 0.352941, 0.411765, 0.533333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Rooms" type="Node2D" parent="."]
 
 [node name="DebugRoom" parent="Rooms" instance=ExtResource( 1 )]

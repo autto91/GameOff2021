@@ -13,14 +13,6 @@ __meta__ = {
 "_edit_group_": true
 }
 
-[node name="ColorRect" type="ColorRect" parent="."]
-margin_right = 800.0
-margin_bottom = 600.0
-color = Color( 0.352941, 0.411765, 0.533333, 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="TileMap" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )

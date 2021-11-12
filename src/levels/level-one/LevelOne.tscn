@@ -10,6 +10,14 @@
 
 [node name="LevelOne" type="Node"]
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 3496.0
+margin_bottom = 1296.0
+color = Color( 0.352941, 0.411765, 0.533333, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Rooms" type="Node2D" parent="."]
 
 [node name="IntroRoom" parent="Rooms" instance=ExtResource( 1 )]
